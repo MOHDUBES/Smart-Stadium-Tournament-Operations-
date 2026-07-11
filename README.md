@@ -117,44 +117,46 @@ The codebase is strictly structured into modular layers — **User → UI → St
 
 ```mermaid
 flowchart TD
-    User(["👤 User\nFan / Volunteer / Organizer"])
+    %% Core User Flow
+    User(["👤 User (Fan/Volunteer/Organizer)"]) --> RoleSelection["RoleSelection.tsx"]
+    RoleSelection -->|"setRole()"| Store[("useStore.ts\nGlobal State")]
 
-    User -->|"Selects Role"| RoleSelection["RoleSelection.tsx\nLanding Page"]
-    RoleSelection -->|"setRole()"| Store["useStore.ts\nZustand Global Store"]
+    %% Dashboards
+    subgraph Dashboards["Role Dashboards"]
+        Fan["FanDashboard.tsx"]
+        Vol["VolunteerDashboard.tsx"]
+        Org["OrganizerDashboard.tsx"]
+    end
+    Store -.-> Dashboards
 
-    Store -->|"role = fan"| Fan["FanDashboard.tsx"]
-    Store -->|"role = volunteer"| Vol["VolunteerDashboard.tsx"]
-    Store -->|"role = organizer"| Org["OrganizerDashboard.tsx"]
+    %% Components
+    subgraph Components["UI Widgets"]
+        Chat["AIChatWidget.tsx"]
+        Map["StadiumMap.tsx"]
+        Inc["IncidentForm.tsx"]
+        Trans["TranslationWidget.tsx"]
+    end
+    Dashboards --> Components
 
-    Fan -->|"uses"| Chat["AIChatWidget.tsx"]
-    Fan -->|"uses"| Map["StadiumMap.tsx\n3D + Google Maps"]
-    Fan -->|"uses"| Eco["SustainabilityModule.tsx"]
+    %% Services
+    subgraph Services["Core Services & Security"]
+        AIService["aiService.ts"]
+        DOMPurify["sanitize.ts (XSS Guard)"]
+        MockData["mockData.ts (Data)"]
+        I18n["translations.ts (i18n)"]
+    end
+    Components -.-> Services
+    Store -.-> MockData
+    Store -.-> I18n
 
-    Vol -->|"uses"| Chat
-    Vol -->|"uses"| Trans["TranslationWidget.tsx"]
-    Vol -->|"uses"| Inc["IncidentForm.tsx"]
-
-    Org -->|"uses"| Chat
-    Org -->|"uses"| Map
-    Org -->|"uses"| Inc
-
-    Chat -->|"generateAIResponse()"| AIService["aiService.ts\nAI Service Layer"]
-    Trans -->|"generateTranslation()"| AIService
-
-    AIService -->|"Live API"| Gemini["Google Gemini 2.5 Flash"]
-    AIService -->|"No key / API error"| Mock["Offline Mock Engine\nDeterministic Fallback"]
-
-    Gemini -->|"validate"| Output["validateAIResponse()\nOutput Guard"]
+    %% AI Pipeline
+    AIService --> Gemini["Google Gemini API"]
+    AIService --> Mock["Offline Mock Engine"]
+    Gemini --> Output["Output Validation"]
     Mock --> Output
 
-    Chat -->|"sanitizeInput()"| DOMPurify["sanitize.ts\nDOMPurify XSS Guard"]
-    Trans -->|"sanitizeInput()"| DOMPurify
-    Inc -->|"sanitizeInput()"| DOMPurify
-
-    Store -->|"seed data"| MockData["mockData.ts\nGates, Amenities, Incidents"]
-    Store -->|"i18n"| I18n["translations.ts\nEN / ES / AR"]
-
-    SimTick["App.tsx setInterval 5s\ntickLiveSimulation()"] -->|"±1 min delta"| Store
+    %% Simulation
+    SimTick["App.tsx (5s tick)"] -->|"Update Data"| Store
 ```
 
 ### Data Flow
