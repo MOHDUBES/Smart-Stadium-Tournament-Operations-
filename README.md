@@ -113,113 +113,68 @@ PitchMind is a **role-based, real-time AI dashboard** that adapts its interface,
 
 ## 🏗️ Technical Architecture
 
-The codebase is strictly layered — **User → UI → State → AI Service → Data** — with no component touching the AI or data layer without going through the Zustand store or service functions.
+The codebase is strictly structured into modular layers — **User → UI → State → AI Service → Data** — with no component touching the AI or data layer without going through the Zustand store or service functions.
 
 ```mermaid
 flowchart TD
-    User(["👤 User (Fan / Volunteer / Organizer)"])
-    User -->|"Selects Role"| RoleSelection["RoleSelection.tsx (Landing Page)"]
-    RoleSelection -->|"setRole()"| Store
+    User(["👤 User\nFan / Volunteer / Organizer"])
 
-    subgraph Store["🗄️ Zustand Global Store — useStore.ts"]
-        StateRole["role / setRole"]
-        StateA11y["language / highContrast / fontSize"]
-        StateStadium["stadiumData — Gates, Amenities, Incidents"]
-        StateTasks["tasks — VolunteerTask[]"]
-        StateChat["externalChatQuery"]
-    end
+    User -->|"Selects Role"| RoleSelection["RoleSelection.tsx\nLanding Page"]
+    RoleSelection -->|"setRole()"| Store["useStore.ts\nZustand Global Store"]
 
-    subgraph Dashboards["📊 Role Dashboards — React.lazy"]
-        Fan["FanDashboard.tsx"]
-        Vol["VolunteerDashboard.tsx"]
-        Org["OrganizerDashboard.tsx"]
-    end
+    Store -->|"role = fan"| Fan["FanDashboard.tsx"]
+    Store -->|"role = volunteer"| Vol["VolunteerDashboard.tsx"]
+    Store -->|"role = organizer"| Org["OrganizerDashboard.tsx"]
 
-    Store -->|"role = fan"| Fan
-    Store -->|"role = volunteer"| Vol
-    Store -->|"role = organizer"| Org
+    Fan -->|"uses"| Chat["AIChatWidget.tsx"]
+    Fan -->|"uses"| Map["StadiumMap.tsx\n3D + Google Maps"]
+    Fan -->|"uses"| Eco["SustainabilityModule.tsx"]
 
-    subgraph Components["🧩 Shared Components"]
-        Chat["AIChatWidget.tsx"]
-        Map["StadiumMap.tsx — 3D / Google Toggle"]
-        A11y["AccessibilityMenu.tsx"]
-        Incident["IncidentForm.tsx"]
-        Translation["TranslationWidget.tsx"]
-        Sustainability["SustainabilityModule.tsx"]
-        Logo["Logo3D.tsx — Three.js"]
-        Background["Background3D.tsx — Three.js"]
-        TiltCard["TiltCard.tsx — 3D Hover"]
-        Counter["AnimatedCounter.tsx"]
-        ErrorBoundary["ErrorBoundary.tsx"]
-    end
+    Vol -->|"uses"| Chat
+    Vol -->|"uses"| Trans["TranslationWidget.tsx"]
+    Vol -->|"uses"| Inc["IncidentForm.tsx"]
 
-    Fan --> Chat
-    Fan --> Map
-    Fan --> Sustainability
-    Vol --> Chat
-    Vol --> Translation
-    Vol --> Incident
-    Org --> Chat
-    Org --> Map
-    Org --> Incident
+    Org -->|"uses"| Chat
+    Org -->|"uses"| Map
+    Org -->|"uses"| Inc
 
-    subgraph AILayer["🤖 AI Service Layer — aiService.ts"]
-        Gemini["Google Gemini 2.5 Flash — Live API"]
-        Mock["Offline Mock Engine — Deterministic Fallback"]
-        Validator["validateAIResponse() — Output Guard"]
-        Gemini -->|"success"| Validator
-        Gemini -->|"error or no key"| Mock
-        Mock --> Validator
-    end
+    Chat -->|"generateAIResponse()"| AIService["aiService.ts\nAI Service Layer"]
+    Trans -->|"generateTranslation()"| AIService
 
-    Chat -->|"generateAIResponse(msg, role, stadiumData)"| AILayer
-    Translation -->|"generateTranslation(text, lang)"| AILayer
+    AIService -->|"Live API"| Gemini["Google Gemini 2.5 Flash"]
+    AIService -->|"No key / API error"| Mock["Offline Mock Engine\nDeterministic Fallback"]
 
-    subgraph DataLayer["📦 Data Layer"]
-        MockData["mockData.ts — Stadium Seed Data"]
-        Translations["translations.ts — EN / ES / AR"]
-        Types["types.ts — TypeScript Interfaces"]
-        Sanitize["sanitize.ts — DOMPurify XSS Prevention"]
-        StadiumUtils["stadiumUtils.ts — getWorstWaitTimeGate, getCapacityColor"]
-        LangUtils["languageUtils.ts — RTL Detection"]
-    end
+    Gemini -->|"validate"| Output["validateAIResponse()\nOutput Guard"]
+    Mock --> Output
 
-    Store -->|"reads seed"| MockData
-    Dashboards -->|"reads"| Translations
-    Chat -->|"sanitizeInput()"| Sanitize
-    Incident -->|"sanitizeInput()"| Sanitize
-    Translation -->|"sanitizeInput()"| Sanitize
+    Chat -->|"sanitizeInput()"| DOMPurify["sanitize.ts\nDOMPurify XSS Guard"]
+    Trans -->|"sanitizeInput()"| DOMPurify
+    Inc -->|"sanitizeInput()"| DOMPurify
 
-    subgraph Simulation["⏱️ Live Simulation"]
-        Tick["App.tsx: setInterval 5s — tickLiveSimulation()"]
-        Tick -->|"plus-minus 1 min delta on gates"| StateStadium
-    end
+    Store -->|"seed data"| MockData["mockData.ts\nGates, Amenities, Incidents"]
+    Store -->|"i18n"| I18n["translations.ts\nEN / ES / AR"]
 
-    subgraph BuildLayer["🔨 Build and Test"]
-        Vite["Vite 8 — Dev Server + Bundler"]
-        Vitest["Vitest + jsdom — 68 Tests, 89% Coverage"]
-        TS["TypeScript 6.0 — Strict Mode"]
-        Oxlint["OxLint — Fast Linter"]
-    end
+    SimTick["App.tsx setInterval 5s\ntickLiveSimulation()"] -->|"±1 min delta"| Store
 ```
 
-### Data Flow Summary
+### Data Flow
 
 ```
-User Input
-    → sanitizeInput()
-    → AIChatWidget
-    → generateAIResponse(message, role, stadiumData)
-          ↓
-    [Gemini API] or [Offline Mock Engine]
-          ↓
-    validateAIResponse()
-          ↓
-    Message added to chat log
-    (aria-live="polite" notifies screen readers)
+User types a message
+    → sanitizeInput()          (DOMPurify strips any XSS)
+    → AIChatWidget             (rate limit: 2s cooldown)
+    → generateAIResponse(message, role, liveStadiumData)
+              ↓
+    Google Gemini 2.5 Flash    (if API key present)
+              ↓  fails or no key
+    Offline Mock Engine        (deterministic, randomised responses)
+              ↓
+    validateAIResponse()       (guards empty / malformed output)
+              ↓
+    Message appended to chat log
+    aria-live="polite" → screen reader announces response
 ```
 
----
 
 ## 🛠️ Technology Stack
 
