@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2FBF9F"/>
+      <stop offset="100%" stop-color="#7ED957"/>
+    </linearGradient>
+  </defs>
+  <!-- Hexagon Background -->
+  <path d="M50 5 L89 27.5 L89 72.5 L50 95 L11 72.5 L11 27.5 Z" fill="url(#grad)" />
+  
+  <!-- "P" Letter styling -->
+  <path d="M40 30 h 15 c 10 0, 15 8, 15 15 c 0 7, -5 15, -15 15 h -5 v 15 h -10 Z m 10 10 v 10 h 5 c 4 0, 5 -3, 5 -5 c 0 -2, -1 -5, -5 -5 Z" fill="#0B0F14" />
+</svg>

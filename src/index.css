@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-teal: #2FBF9F;
+  --color-brand-green: #7ED957;
+  --color-brand-dark: #0B0F14;
+  --color-brand-text: #F3E9D2;
+  --color-brand-card: rgba(243, 233, 210, 0.03);
+}
+
+@layer base {
+  body {
+    @apply bg-brand-dark text-brand-text font-sans min-h-screen antialiased;
+  }
+  
+  /* High Contrast Mode Overrides */
+  .high-contrast {
+    @apply bg-black text-white;
+  }
+  
+  .high-contrast .glass-panel {
+    @apply bg-black border-2 border-white backdrop-blur-none shadow-none;
+  }
+  
+  .high-contrast .btn-primary {
+    @apply bg-white text-black border-2 border-white shadow-none from-white to-white;
+  }
+  
+  .high-contrast .btn-glass {
+    @apply bg-black text-white border-2 border-white;
+  }
+
+  .high-contrast .skeleton {
+    @apply bg-white/20;
+  }
+
+  /* Font Size Adjustments */
+  .text-large {
+    font-size: 110%;
+  }
+
+  /* Skip-to-content link (keyboard accessibility) */
+  .skip-link {
+    @apply absolute -top-full left-4 z-[9999] bg-brand-teal text-brand-dark font-bold px-4 py-2 rounded-b-lg transition-all duration-200;
+  }
+  .skip-link:focus {
+    @apply top-0;
+  }
+
+  /* Focus ring for all interactive elements */
+  *:focus-visible {
+    outline: 2px solid #2FBF9F;
+    outline-offset: 2px;
+  }
+
+  /* WCAG 2.1 SC 2.3.3: Animation from Interactions — respect user preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-brand-card backdrop-blur-md rounded-2xl transition-all duration-300;
+    border: 1px solid rgba(243, 233, 210, 0.1);
+    border-top-color: rgba(243, 233, 210, 0.2);
+    border-left-color: rgba(243, 233, 210, 0.15);
+    transform-style: preserve-3d;
+    box-shadow: 
+      0 15px 35px -5px rgba(0,0,0,0.5),
+      0 5px 15px rgba(0,0,0,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  
+  .glass-panel:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-2px) translateZ(10px);
+    box-shadow: 
+      2px 25px 40px -10px rgba(0,0,0,0.6),
+      2px 10px 20px rgba(47,191,159,0.15),
+      inset 0 1px 1px rgba(255,255,255,0.1);
+    border-top-color: rgba(47,191,159,0.4);
+    border-left-color: rgba(47,191,159,0.3);
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200 border-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark active:scale-95;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-br from-brand-teal to-brand-green text-brand-dark shadow-[0_4px_15px_rgba(47,191,159,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(47,191,159,0.4)] active:translate-y-0;
+  }
+  
+  .btn-glass {
+    @apply bg-brand-text/5 border border-brand-text/10 text-brand-text hover:bg-brand-text/10;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(243, 233, 210, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(243, 233, 210, 0.3);
+}
+
+/* Skeleton Loading Animation */
+.skeleton {
+  @apply bg-brand-text/10 animate-pulse rounded;
+}
