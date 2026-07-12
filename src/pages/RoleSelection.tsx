@@ -1,4 +1,5 @@
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Ticket, Users, ShieldAlert } from 'lucide-react';
 import { useAppStore } from '../store/useStore';
 import type { UserRole } from '../types';

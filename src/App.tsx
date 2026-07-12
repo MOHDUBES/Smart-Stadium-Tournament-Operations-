@@ -1,5 +1,6 @@
 import { useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import Background3D from './components/Background3D';
 import RoleSelection from './pages/RoleSelection';
 import AccessibilityMenu from './components/AccessibilityMenu';
