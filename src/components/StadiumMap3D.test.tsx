@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import StadiumMap3D from './StadiumMap3D';
 
 // Mock ResizeObserver for JSDOM
-(window as unknown as { ResizeObserver: any }).ResizeObserver = class {
+(window as unknown as { ResizeObserver: unknown }).ResizeObserver = class {
   observe() {}
   unobserve() {}
   disconnect() {}

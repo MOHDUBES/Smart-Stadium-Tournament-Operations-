@@ -16,6 +16,9 @@ export default defineConfig({
       ]
     }
   },
+  resolve: {
+    dedupe: ['react', 'react-dom', 'three']
+  },
   build: {
     rollupOptions: {
       output: {

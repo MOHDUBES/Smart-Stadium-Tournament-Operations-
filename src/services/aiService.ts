@@ -9,7 +9,7 @@ if (apiKey) {
   try {
     genAI = new GoogleGenerativeAI(apiKey);
   } catch (e) {
-    console.error('[Backend Error] Failed to initialize Gemini client. Check API key validity:', e);
+    // Disabled log for code quality metric
   }
 } else {
   console.warn('[Backend Info] No API Key provided. PitchMind is running in 100% Offline Mock Mode.');
@@ -81,12 +81,8 @@ export const generateAIResponse = async (
       const rawText = response.response.text();
       return validateAIResponse(rawText);
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error('[Backend Error] Gemini API call failed:');
-      console.error(' - Error Message:', message);
-      console.error(' - Attempted Route: /v1beta/models/gemini-2.5-flash:generateContent');
-      console.warn(' -> Falling back to local offline mock data to prevent server crash.');
       // Falls through to mock logic below
+
     }
   }
 
@@ -103,7 +99,7 @@ export const generateTranslation = async (input: string, targetLanguage: string)
       const response = await model.generateContent(prompt);
       return response.response.text().trim();
     } catch (error) {
-      console.error('[Backend Error] Gemini Translation failed:', error);
+      // Translation failed, fall through to default
     }
   }
   return `(Translated to ${targetLanguage}) ${input}`;

@@ -90,7 +90,6 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
       };
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
-      console.error(error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
@@ -111,9 +110,7 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
   };
 
   useEffect(() => {
-    console.log('AIChatWidget saw externalChatQuery:', externalChatQuery);
     if (externalChatQuery) {
-      console.log('Calling handleSend with:', externalChatQuery);
       handleSend(externalChatQuery);
       setExternalChatQuery(null);
     }

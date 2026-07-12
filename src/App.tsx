@@ -1,5 +1,5 @@
 import { useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Background3D from './components/Background3D';
 import RoleSelection from './pages/RoleSelection';
 import AccessibilityMenu from './components/AccessibilityMenu';
@@ -39,8 +39,7 @@ function App() {
     }
   }, [language, highContrast, fontSize]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const flipVariants: any = {
+  const flipVariants: Variants = {
     initial: { rotateY: 90, opacity: 0 },
     animate: { rotateY: 0, opacity: 1, transition: { duration: 0.6, type: 'spring', bounce: 0.4 } },
     exit: { opacity: 0, rotateY: 90, scale: 0.9, z: -200 },

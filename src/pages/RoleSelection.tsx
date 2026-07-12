@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { Ticket, Users, ShieldAlert } from 'lucide-react';
 import { useAppStore } from '../store/useStore';
 import type { UserRole } from '../types';
@@ -13,8 +13,7 @@ const RoleSelection: React.FC = () => {
   const language = useAppStore((state) => state.language);
   const t = translations[language];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const containerVariants: any = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -22,8 +21,7 @@ const RoleSelection: React.FC = () => {
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const itemVariants: any = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     show: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 24 } }
   };
