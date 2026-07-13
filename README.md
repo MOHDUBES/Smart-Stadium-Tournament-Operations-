@@ -89,9 +89,9 @@ PitchMind is a **role-based, real-time AI dashboard** that adapts its interface,
 - **Real stadium data shapes**: Gates, amenities, incidents, and crowd density typed via TypeScript interfaces matching real IoT API structures
 - **State-driven updates**: All live data flows through the Zustand store
 
-### 🗺️ 3. Dual-Mode Stadium Map (3D + Google Maps)
+### 🗺️ 3. Dual-Mode Stadium Map (3D + Leaflet Maps)
 - **React Three Fiber 3D map**: Interactive WebGL stadium with zones colored by capacity (green/amber/red) and camera controls
-- **Google Maps integration**: Togglable real satellite map view using `@react-google-maps/api` with dark theme styling
+- **Leaflet Maps integration**: Togglable CartoDB Dark Matter map view using `react-leaflet` and `leaflet-routing-machine`
 - **Accessible toggle**: `aria-pressed` buttons inside a `role="group"` wrapper
 
 ### 🌍 4. Multi-Language Support (i18n)
@@ -219,7 +219,7 @@ User types a message
 | Technology | Version | Purpose |
 |---|---|---|
 | **@google/generative-ai** | 0.24.1 | Google Gemini 2.5 Flash API client |
-| **@react-google-maps/api** | 2.20.8 | Google Maps integration |
+| **react-leaflet** | 5.0.0 | Leaflet Maps integration & Routing |
 
 ### State Management
 
@@ -291,7 +291,7 @@ Smart Stadiums & Tournament Operations/
     │   ├── ErrorBoundary.tsx         # React class-based error boundary
     │   ├── IncidentForm.tsx          # Incident reporting form with DOMPurify sanitization
     │   ├── Logo3D.tsx                # Three.js rotating PitchMind logo
-    │   ├── StadiumMap.tsx            # Map container with 3D and Google Maps toggle
+    │   ├── StadiumMap.tsx            # Map container with 3D and Leaflet Maps toggle
     │   ├── StadiumMap3D.tsx          # React Three Fiber stadium zone visualization
     │   ├── SustainabilityModule.tsx  # Rotating eco-tips with aria-live announcements
     │   ├── TiltCard.tsx              # Framer Motion 3D tilt hover effect card
@@ -602,7 +602,7 @@ npm run coverage
 3. **Single-match session** — no multi-event scheduling or match history
 4. **AI latency** — live Gemini responses take 2-4 seconds; production would use streaming
 5. **Translation requires connectivity** — falls back to a placeholder in offline mode
-6. **Google Maps mock key** — the map view uses `"MOCK_API_KEY_FOR_DEMO"` and needs a real key in production
+6. **Map Provider** — Uses free, open-source Leaflet CartoDB Dark Matter tiles.
 
 ---
 
@@ -616,7 +616,7 @@ npm run coverage
 |---|---|
 | **Role Selection** | Glassmorphism cards with 3D tilt hover, gradient logo, animated entry |
 | **AI Chat** | Animated message bubbles, typing indicator, 3D AI status orb |
-| **Stadium Map** | WebGL zones colored by capacity, Google Maps dark theme toggle |
+| **Stadium Map** | WebGL zones colored by capacity, Leaflet dark theme map & Live Routing |
 | **Volunteer Tasks** | Interactive checklist with keyboard support and completion animations |
 | **Incident Form** | Accessible form with linked labels, type selector, and instant submission |
 | **Accessibility Panel** | Language switcher EN/ES/AR, high contrast toggle, large text toggle |
