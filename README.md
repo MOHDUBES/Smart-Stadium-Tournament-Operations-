@@ -3,6 +3,8 @@
 
 > *"Every fan deserves a personal guide. Every volunteer needs real-time intelligence. Every organizer wants command-level clarity. PitchMind delivers all three — simultaneously."*
 
+### 🚀 [Live Demo Available Here](https://pitchmind-smart-stadium.web.app/)
+
 [![Tests Passing](https://img.shields.io/badge/tests-68%20passing-brightgreen)](./src)
 [![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](./vite.config.ts)
 [![Build](https://img.shields.io/badge/build-passing-brightgreen)](./vite.config.ts)
