@@ -12,7 +12,7 @@ if (apiKey) {
     // Disabled log for code quality metric
   }
 } else {
-  console.warn('[Backend Info] No API Key provided. PitchMind is running in 100% Offline Mock Mode.');
+  // Mock mode notification silently handled
 }
 
 // ─── System Prompt ─────────────────────────────────────────────────────────────

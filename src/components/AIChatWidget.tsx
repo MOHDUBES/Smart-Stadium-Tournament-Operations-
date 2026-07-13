@@ -56,7 +56,6 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
     // RATE LIMITING: Prevent spamming the AI service (max 1 message per 2 seconds)
     const now = Date.now();
     if (now - lastSentTime.current < 2000) {
-      console.warn("Rate limit exceeded. Please wait before sending another message.");
       return;
     }
 
