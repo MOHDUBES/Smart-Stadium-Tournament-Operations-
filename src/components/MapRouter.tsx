@@ -41,7 +41,7 @@ export const MapRouter: React.FC<MapRouterProps> = ({ fromPoint, toPoint, routin
         extendToWaypoints: true,
         missingRouteTolerance: 0
       },
-      show: true, // Show turn-by-turn instructions
+      show: false, // Hide ugly default turn-by-turn instructions box
       createMarker: (i, waypoint) => {
         return L.marker(waypoint.latLng, {
           icon: DefaultIcon

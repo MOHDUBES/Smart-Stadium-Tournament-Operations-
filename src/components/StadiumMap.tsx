@@ -67,35 +67,32 @@ const StadiumMap: React.FC = () => {
           
           {/* Routing Panel Toggle */}
           {viewMode === 'google' && (
-            <div className="absolute top-4 right-4 z-[400] flex flex-col gap-2">
+            <div className="absolute top-3 right-3 z-[400]">
                <button 
                  onClick={() => setIsRoutingMode(!isRoutingMode)} 
-                 className={`py-2 px-4 shadow-lg rounded-full flex items-center gap-2 font-medium transition-all text-sm ${isRoutingMode ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-brand-teal text-brand-dark hover:bg-brand-teal/90'}`}
+                 className={`py-1.5 px-3 shadow-lg rounded-full flex items-center gap-1.5 font-medium transition-all text-xs ${isRoutingMode ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-brand-teal text-brand-dark hover:bg-brand-teal/90'}`}
                >
-                 <Navigation size={16} /> {isRoutingMode ? "Close Navigation" : "Get Directions"}
+                 <Navigation size={14} /> {isRoutingMode ? "Close" : "Route"}
                </button>
             </div>
           )}
 
           {/* Floating Routing Panel */}
           {viewMode === 'google' && isRoutingMode && (
-            <div className="absolute top-16 right-4 z-[400] bg-brand-dark/95 backdrop-blur-md p-5 rounded-xl border border-white/10 shadow-2xl w-80 animate-in fade-in slide-in-from-top-4 duration-300">
-               <h3 className="text-white font-medium mb-4 flex items-center gap-2"><MapPin size={16} className="text-brand-teal"/> Navigation Router</h3>
-               <div className="flex flex-col gap-3">
+            <div className="absolute top-12 left-1/2 -translate-x-1/2 z-[400] bg-brand-dark/95 backdrop-blur-md p-3 rounded-xl border border-white/10 shadow-2xl w-[90%] max-w-sm animate-in fade-in slide-in-from-top-4 duration-300">
+               <h3 className="text-white text-sm font-medium mb-2 flex items-center gap-1.5"><MapPin size={14} className="text-brand-teal"/> Navigation</h3>
+               <div className="flex flex-col gap-2">
                  <div>
-                   <label className="text-xs text-white/50 mb-1 block font-medium">From</label>
-                   <select className="w-full bg-black/60 border border-white/10 rounded-lg p-2.5 text-sm text-white focus:border-brand-teal focus:ring-1 focus:ring-brand-teal outline-none transition-all" value={fromLocation} onChange={e => setFromLocation(e.target.value)}>
+                   <label className="text-[10px] text-white/50 mb-0.5 block font-medium uppercase tracking-wider">From</label>
+                   <select className="w-full bg-black/60 border border-white/10 rounded-lg p-1.5 text-xs text-white focus:border-brand-teal focus:ring-1 focus:ring-brand-teal outline-none transition-all" value={fromLocation} onChange={e => setFromLocation(e.target.value)}>
                      {Object.keys(LOCATIONS).map(loc => <option key={loc} value={loc}>{loc}</option>)}
                    </select>
                  </div>
                  <div>
-                   <label className="text-xs text-white/50 mb-1 block font-medium">To</label>
-                   <select className="w-full bg-black/60 border border-white/10 rounded-lg p-2.5 text-sm text-white focus:border-brand-teal focus:ring-1 focus:ring-brand-teal outline-none transition-all" value={toLocation} onChange={e => setToLocation(e.target.value)}>
+                   <label className="text-[10px] text-white/50 mb-0.5 block font-medium uppercase tracking-wider">To</label>
+                   <select className="w-full bg-black/60 border border-white/10 rounded-lg p-1.5 text-xs text-white focus:border-brand-teal focus:ring-1 focus:ring-brand-teal outline-none transition-all" value={toLocation} onChange={e => setToLocation(e.target.value)}>
                      {Object.keys(LOCATIONS).map(loc => <option key={loc} value={loc}>{loc}</option>)}
                    </select>
-                 </div>
-                 <div className="text-xs text-brand-teal mt-3 bg-brand-teal/10 p-2.5 rounded-lg border border-brand-teal/20">
-                    <strong>Mode:</strong> {routingType === 'road' ? '🚗 GPS Road Routing' : '🚶 Internal Stadium Walking'}
                  </div>
                </div>
             </div>
