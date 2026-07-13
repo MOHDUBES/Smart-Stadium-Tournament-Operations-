@@ -2,8 +2,18 @@ import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 import React from 'react';
 
-// Mock scrollIntoView for jsdom
+// Mock pointer events and scrollIntoView
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
+window.HTMLElement.prototype.hasPointerCapture = vi.fn();
+window.HTMLElement.prototype.releasePointerCapture = vi.fn();
+
+// Mock global fetch for aiService
+global.fetch = vi.fn(() =>
+  Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({ text: 'Mocked AI response from backend' }),
+  })
+) as any;
 
 // Suppress React warnings in tests to ensure clean stderr for Code Quality score
 /* eslint-disable no-console */

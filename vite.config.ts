@@ -10,10 +10,13 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.ts'],
     globals: true,
     coverage: {
-      exclude: [
-        'eslint.config.js', 'postcss.config.js', 'tailwind.config.js', 'src/vite-env.d.ts', 'src/setupTests.ts', 'src/main.tsx',
-        'src/components/**', 'src/pages/**', 'src/App.tsx'
-      ]
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/main.tsx', 'src/vite-env.d.ts', 'src/setupTests.ts']
+    }
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8080'
     }
   },
   resolve: {
