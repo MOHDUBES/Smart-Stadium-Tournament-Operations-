@@ -17,13 +17,13 @@ const RoleSelection: React.FC = () => {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
+      transition: { staggerChildren: 0.15 },
+    },
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    show: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 24 } }
+    show: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 24 } },
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, role: UserRole) => {
@@ -36,15 +36,25 @@ const RoleSelection: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-6">
       <main className="text-center max-w-5xl w-full" aria-labelledby="welcome-title">
-        <motion.div initial={{ opacity: 0, y: -20, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.8, ease: "easeOut" }} className="flex flex-col items-center mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="flex flex-col items-center mb-8"
+        >
           <Suspense fallback={<div className="w-32 h-32 mx-auto mb-6 skeleton rounded-full" />}>
             <Logo3D />
           </Suspense>
-          <h1 id="welcome-title" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-br from-brand-teal to-brand-green bg-clip-text text-transparent">
+          <h1
+            id="welcome-title"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-br from-brand-teal to-brand-green bg-clip-text text-transparent"
+          >
             {t.welcome}
           </h1>
           <p className="text-lg md:text-xl text-slate-400 mb-2">{t.subtitle}</p>
-          <p className="text-brand-text/80 mb-12" aria-live="polite">{t.selectRole}</p>
+          <p className="text-brand-text/80 mb-12" aria-live="polite">
+            {t.selectRole}
+          </p>
         </motion.div>
 
         <motion.div
@@ -88,7 +98,11 @@ const RoleSelection: React.FC = () => {
             </TiltCard>
           </motion.div>
 
-          <motion.div variants={itemVariants} role="listitem" className="sm:col-span-2 lg:col-span-1">
+          <motion.div
+            variants={itemVariants}
+            role="listitem"
+            className="sm:col-span-2 lg:col-span-1"
+          >
             <TiltCard
               role="button"
               tabIndex={0}

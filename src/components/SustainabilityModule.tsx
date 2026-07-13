@@ -11,15 +11,21 @@ const SustainabilityModule: React.FC = () => {
 
   const tips = [
     t.ecoRecycle,
-    language === 'en' ? "Consider taking the Metro home today to reduce your carbon footprint!" : 
-    (language === 'es' ? "¡Considere tomar el Metro hoy para reducir su huella de carbono!" : "فكر في ركوب المترو اليوم لتقليل بصمتك الكربونية!"),
-    language === 'en' ? "Did you know this stadium uses 100% renewable energy for night matches?" :
-    (language === 'es' ? "¿Sabías que este estadio usa energía 100% renovable para los partidos nocturnos?" : "هل تعلم أن هذا الملعب يستخدم طاقة متجددة بنسبة 100٪ في المباريات الليلية؟")
+    language === 'en'
+      ? 'Consider taking the Metro home today to reduce your carbon footprint!'
+      : language === 'es'
+        ? '¡Considere tomar el Metro hoy para reducir su huella de carbono!'
+        : 'فكر في ركوب المترو اليوم لتقليل بصمتك الكربونية!',
+    language === 'en'
+      ? 'Did you know this stadium uses 100% renewable energy for night matches?'
+      : language === 'es'
+        ? '¿Sabías que este estadio usa energía 100% renovable para los partidos nocturnos?'
+        : 'هل تعلم أن هذا الملعب يستخدم طاقة متجددة بنسبة 100٪ في المباريات الليلية؟',
   ];
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setTipIndex(prev => (prev + 1) % tips.length);
+      setTipIndex((prev) => (prev + 1) % tips.length);
     }, 10000);
     return () => clearInterval(interval);
   }, [tips.length]);

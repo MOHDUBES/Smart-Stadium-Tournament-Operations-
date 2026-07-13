@@ -53,7 +53,9 @@ const VolunteerDashboard: React.FC<Props> = ({ onLogout }) => {
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <TiltCard className="glass-panel p-6 flex flex-col">
-              <h2 className="text-xl font-semibold text-brand-text">{t.zoneAssignment}: North (Gate 1)</h2>
+              <h2 className="text-xl font-semibold text-brand-text">
+                {t.zoneAssignment}: North (Gate 1)
+              </h2>
               <p className="text-brand-text/60 mt-1 mb-6">Active Shift: 14:00 - 20:00</p>
 
               <div className="flex flex-wrap gap-4 mt-auto">
@@ -62,9 +64,14 @@ const VolunteerDashboard: React.FC<Props> = ({ onLogout }) => {
                   aria-label={t.reportIncident}
                   onClick={() => setShowIncidentForm(!showIncidentForm)}
                 >
-                  <AlertTriangle size={18} aria-hidden="true" /> <span className="ms-1">{t.reportIncident}</span>
+                  <AlertTriangle size={18} aria-hidden="true" />{' '}
+                  <span className="ms-1">{t.reportIncident}</span>
                 </button>
-                <button onClick={() => handleChatAction("Show me the stadium map for my zone")} className="btn btn-glass" aria-label={t.viewMap}>
+                <button
+                  onClick={() => handleChatAction('Show me the stadium map for my zone')}
+                  className="btn btn-glass"
+                  aria-label={t.viewMap}
+                >
                   <Map size={18} aria-hidden="true" /> <span className="ms-1">{t.viewMap}</span>
                 </button>
               </div>
@@ -75,7 +82,11 @@ const VolunteerDashboard: React.FC<Props> = ({ onLogout }) => {
 
           <AnimatePresence>
             {showIncidentForm && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+              >
                 <IncidentForm onClose={() => setShowIncidentForm(false)} />
               </motion.div>
             )}
@@ -84,20 +95,29 @@ const VolunteerDashboard: React.FC<Props> = ({ onLogout }) => {
           {/* Submitted Incidents List */}
           {stadiumData.incidents.length > 0 && (
             <TiltCard className="glass-panel p-6 animate-in fade-in slide-in-from-top-4 duration-500">
-              <h2 className="text-xl font-semibold mb-5 text-brand-text border-b border-white/10 pb-2">Recent Reports</h2>
+              <h2 className="text-xl font-semibold mb-5 text-brand-text border-b border-white/10 pb-2">
+                Recent Reports
+              </h2>
               <div className="flex flex-col gap-3">
                 {stadiumData.incidents.slice(0, 3).map((incident) => (
-                  <div key={incident.id} className="p-4 bg-black/20 border border-brand-teal/20 rounded-xl flex items-center justify-between shadow-lg">
+                  <div
+                    key={incident.id}
+                    className="p-4 bg-black/20 border border-brand-teal/20 rounded-xl flex items-center justify-between shadow-lg"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="bg-brand-teal/20 p-2 rounded-lg">
                         <AlertTriangle size={18} className="text-brand-teal" />
                       </div>
                       <div>
                         <p className="font-medium text-brand-text">{incident.title}</p>
-                        <p className="text-xs text-brand-teal capitalize">{incident.type} • {incident.status}</p>
+                        <p className="text-xs text-brand-teal capitalize">
+                          {incident.type} • {incident.status}
+                        </p>
                       </div>
                     </div>
-                    <span className="text-xs text-brand-text/50 bg-black/40 px-2 py-1 rounded-md">{incident.timeAgo}</span>
+                    <span className="text-xs text-brand-text/50 bg-black/40 px-2 py-1 rounded-md">
+                      {incident.timeAgo}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -105,37 +125,48 @@ const VolunteerDashboard: React.FC<Props> = ({ onLogout }) => {
           )}
 
           <TiltCard className="glass-panel p-6">
-            <h2 className="text-xl font-semibold mb-5 text-brand-text border-b border-white/10 pb-2">{t.taskChecklist}</h2>
+            <h2 className="text-xl font-semibold mb-5 text-brand-text border-b border-white/10 pb-2">
+              {t.taskChecklist}
+            </h2>
             <ul className="flex flex-col gap-3">
-              {loading ? (
-                Array.from({ length: 3 }).map((_, i) => (
-                  <li key={i} className="flex items-center gap-4 p-4 bg-black/20 border border-white/5 rounded-xl">
-                    <div className="w-5 h-5 skeleton rounded" />
-                    <div className="h-5 w-48 skeleton rounded-md" />
-                  </li>
-                ))
-              ) : (
-                tasks.map(task => (
-                  <motion.li
-                    initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-                    key={task.id}
-                    role="checkbox"
-                    aria-checked={task.completed}
-                    tabIndex={0}
-                    onKeyDown={(e) => handleTaskKeyDown(e, task.id)}
-                    onClick={() => toggleTask(task.id)}
-                    className={`flex items-center gap-4 p-4 border rounded-xl cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${task.completed
-                        ? 'bg-brand-green/10 border-brand-green/30 opacity-70'
-                        : 'bg-black/20 border-white/5 hover:bg-black/40'
+              {loading
+                ? Array.from({ length: 3 }).map((_, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-4 p-4 bg-black/20 border border-white/5 rounded-xl"
+                    >
+                      <div className="w-5 h-5 skeleton rounded" />
+                      <div className="h-5 w-48 skeleton rounded-md" />
+                    </li>
+                  ))
+                : tasks.map((task) => (
+                    <motion.li
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      key={task.id}
+                      role="checkbox"
+                      aria-checked={task.completed}
+                      tabIndex={0}
+                      onKeyDown={(e) => handleTaskKeyDown(e, task.id)}
+                      onClick={() => toggleTask(task.id)}
+                      className={`flex items-center gap-4 p-4 border rounded-xl cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal ${
+                        task.completed
+                          ? 'bg-brand-green/10 border-brand-green/30 opacity-70'
+                          : 'bg-black/20 border-white/5 hover:bg-black/40'
                       }`}
-                  >
-                    <CheckSquare size={22} className={task.completed ? 'text-brand-green' : 'text-brand-text/40'} aria-hidden="true" />
-                    <span className={`font-medium ${task.completed ? 'line-through text-brand-text/50' : 'text-brand-text'}`}>
-                      {task.text}
-                    </span>
-                  </motion.li>
-                ))
-              )}
+                    >
+                      <CheckSquare
+                        size={22}
+                        className={task.completed ? 'text-brand-green' : 'text-brand-text/40'}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={`font-medium ${task.completed ? 'line-through text-brand-text/50' : 'text-brand-text'}`}
+                      >
+                        {task.text}
+                      </span>
+                    </motion.li>
+                  ))}
             </ul>
           </TiltCard>
         </div>

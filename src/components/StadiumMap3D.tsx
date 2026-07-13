@@ -6,15 +6,7 @@ import type { Gate } from '../types';
 import { useAppStore } from '../store/useStore';
 
 // Individual Gate Marker
-const GateMarker = ({
-  gate,
-  angle,
-  radius
-}: {
-  gate: Gate;
-  angle: number;
-  radius: number
-}) => {
+const GateMarker = ({ gate, angle, radius }: { gate: Gate; angle: number; radius: number }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const isCrowded = gate.capacityPercent >= 80;
 
@@ -41,7 +33,9 @@ const GateMarker = ({
         />
       </mesh>
       <Html position={[0, 1, 0]} center className="pointer-events-none">
-        <div className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap backdrop-blur-md border ${isCrowded ? 'bg-red-500/20 text-red-400 border-red-500/30' : 'bg-brand-teal/20 text-brand-teal border-brand-teal/30'}`}>
+        <div
+          className={`px-2 py-1 rounded text-xs font-bold whitespace-nowrap backdrop-blur-md border ${isCrowded ? 'bg-red-500/20 text-red-400 border-red-500/30' : 'bg-brand-teal/20 text-brand-teal border-brand-teal/30'}`}
+        >
           {gate.name} ({gate.waitTimeMinutes}m)
         </div>
       </Html>

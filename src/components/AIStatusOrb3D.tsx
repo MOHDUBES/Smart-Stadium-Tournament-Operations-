@@ -17,10 +17,10 @@ const Orb = ({ isTyping }: { isTyping: boolean }) => {
       const speed = isTyping ? 8 : 2;
       const baseScale = isTyping ? 1.2 : 1.0;
       const pulse = Math.sin(state.clock.elapsedTime * speed) * 0.15;
-      
+
       const scale = baseScale + pulse;
       meshRef.current.scale.set(scale, scale, scale);
-      
+
       meshRef.current.rotation.y += isTyping ? 0.05 : 0.01;
       meshRef.current.rotation.x += isTyping ? 0.03 : 0.01;
     }
@@ -29,7 +29,7 @@ const Orb = ({ isTyping }: { isTyping: boolean }) => {
   return (
     <mesh ref={meshRef}>
       <icosahedronGeometry args={[1, 2]} />
-      <meshStandardMaterial 
+      <meshStandardMaterial
         color={highContrast ? '#ffffff' : '#2FBF9F'}
         emissive={highContrast ? '#ffffff' : '#2FBF9F'}
         emissiveIntensity={isTyping ? 2 : 0.8}

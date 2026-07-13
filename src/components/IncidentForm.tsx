@@ -11,7 +11,7 @@ interface Props {
 const IncidentForm: React.FC<Props> = ({ onClose }) => {
   const { language, addIncident } = useAppStore();
   const t = translations[language];
-  
+
   const [title, setTitle] = useState('');
   const [type, setType] = useState('medical');
   const [desc, setDesc] = useState('');
@@ -31,10 +31,15 @@ const IncidentForm: React.FC<Props> = ({ onClose }) => {
         <AlertTriangle size={24} />
         <h3 className="text-xl font-semibold text-brand-text">{t.reportIncident}</h3>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
-          <label htmlFor="incident-title" className="block text-sm font-medium text-brand-text/70 mb-1">{t.incidentTitle}</label>
+          <label
+            htmlFor="incident-title"
+            className="block text-sm font-medium text-brand-text/70 mb-1"
+          >
+            {t.incidentTitle}
+          </label>
           <input
             id="incident-title"
             required
@@ -44,9 +49,14 @@ const IncidentForm: React.FC<Props> = ({ onClose }) => {
             placeholder="e.g. Spilled drink at Gate 2"
           />
         </div>
-        
+
         <div>
-          <label htmlFor="incident-type" className="block text-sm font-medium text-brand-text/70 mb-1">{t.incidentType}</label>
+          <label
+            htmlFor="incident-type"
+            className="block text-sm font-medium text-brand-text/70 mb-1"
+          >
+            {t.incidentType}
+          </label>
           <select
             id="incident-type"
             value={type}
@@ -61,7 +71,12 @@ const IncidentForm: React.FC<Props> = ({ onClose }) => {
         </div>
 
         <div>
-          <label htmlFor="incident-desc" className="block text-sm font-medium text-brand-text/70 mb-1">{t.incidentDesc}</label>
+          <label
+            htmlFor="incident-desc"
+            className="block text-sm font-medium text-brand-text/70 mb-1"
+          >
+            {t.incidentDesc}
+          </label>
           <textarea
             id="incident-desc"
             value={desc}
@@ -69,12 +84,21 @@ const IncidentForm: React.FC<Props> = ({ onClose }) => {
             className="w-full bg-black/40 border border-brand-text/10 rounded-xl p-3 text-brand-text focus:outline-none focus:border-red-500 min-h-[80px]"
           />
         </div>
-        
+
         <div className="flex justify-end gap-3 mt-2">
-          <button type="button" onClick={onClose} className="btn btn-glass px-4 py-2" aria-label={t.cancel}>
+          <button
+            type="button"
+            onClick={onClose}
+            className="btn btn-glass px-4 py-2"
+            aria-label={t.cancel}
+          >
             {t.cancel}
           </button>
-          <button type="submit" className="btn bg-red-600 text-white hover:bg-red-700 px-6 py-2" aria-label={t.submit}>
+          <button
+            type="submit"
+            className="btn bg-red-600 text-white hover:bg-red-700 px-6 py-2"
+            aria-label={t.submit}
+          >
             {t.submit}
           </button>
         </div>

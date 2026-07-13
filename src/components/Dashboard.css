@@ -8,20 +8,38 @@
   margin-top: 24px;
 }
 
-.text-blue { color: var(--accent-primary); }
-.text-amber { color: #f59e0b; }
-.text-emerald { color: #10b981; }
-.text-purple { color: var(--accent-secondary); }
-.text-success { color: var(--success); }
-.text-warning { color: var(--warning); }
-.text-danger { color: var(--danger); }
-.text-secondary { color: var(--text-secondary); }
+.text-blue {
+  color: var(--accent-primary);
+}
+.text-amber {
+  color: #f59e0b;
+}
+.text-emerald {
+  color: #10b981;
+}
+.text-purple {
+  color: var(--accent-secondary);
+}
+.text-success {
+  color: var(--success);
+}
+.text-warning {
+  color: var(--warning);
+}
+.text-danger {
+  color: var(--danger);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
 
-.stats-panel, .info-panel {
+.stats-panel,
+.info-panel {
   padding: 24px;
 }
 
-.stats-panel h3, .info-panel h3 {
+.stats-panel h3,
+.info-panel h3 {
   margin-bottom: 16px;
   font-size: 1.25rem;
   color: #fff;
@@ -39,14 +57,17 @@
 }
 
 /* Wait Times List */
-.wait-times-list, .checklist, .incident-list {
+.wait-times-list,
+.checklist,
+.incident-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.wait-times-list li, .checklist li {
+.wait-times-list li,
+.checklist li {
   display: flex;
   justify-content: space-between;
   align-items: center;

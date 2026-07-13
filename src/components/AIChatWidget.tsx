@@ -30,7 +30,7 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
   }, [role, language]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -39,14 +39,18 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
 
   function getInitialGreeting(r: UserRole): string {
     // Ideally this would be translated too, but keeping it simple for the mock
-    if (language === 'es') return "¡Hola! Soy PitchMind. ¿En qué te ayudo?";
-    if (language === 'ar') return "مرحبًا! أنا PitchMind. كيف يمكنني المساعدة؟";
+    if (language === 'es') return '¡Hola! Soy PitchMind. ¿En qué te ayudo?';
+    if (language === 'ar') return 'مرحبًا! أنا PitchMind. كيف يمكنني المساعدة؟';
 
     switch (r) {
-      case 'fan': return "Hi! I'm PitchMind, your personal stadium assistant. How can I help you enjoy the match? (Try asking: 'I'm lost' or 'Where is the nearest food stall?')";
-      case 'volunteer': return "Hello! Ready for your shift? I can help translate, guide you on tasks, or report incidents.";
-      case 'organizer': return "System active. How can I assist with tournament operations today? (Try asking: 'Gate 4 status' or 'Show current crowd density')";
-      default: return "Hello!";
+      case 'fan':
+        return "Hi! I'm PitchMind, your personal stadium assistant. How can I help you enjoy the match? (Try asking: 'I'm lost' or 'Where is the nearest food stall?')";
+      case 'volunteer':
+        return 'Hello! Ready for your shift? I can help translate, guide you on tasks, or report incidents.';
+      case 'organizer':
+        return "System active. How can I assist with tournament operations today? (Try asking: 'Gate 4 status' or 'Show current crowd density')";
+      default:
+        return 'Hello!';
     }
   }
 
@@ -72,7 +76,7 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     if (!overrideText) {
       setInputValue('');
     }
@@ -87,15 +91,15 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
         text: aiResponseText,
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
-        text: "I am experiencing network difficulties. Please try again later.",
+        text: 'I am experiencing network difficulties. Please try again later.',
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsTyping(false);
     }
@@ -116,7 +120,11 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
   }, [externalChatQuery]);
 
   return (
-    <div id="ai-chat-widget" className="glass-panel flex flex-col h-[600px] max-h-[80vh] overflow-hidden scroll-mt-24" aria-label="PitchMind AI Chat">
+    <div
+      id="ai-chat-widget"
+      className="glass-panel flex flex-col h-[600px] max-h-[80vh] overflow-hidden scroll-mt-24"
+      aria-label="PitchMind AI Chat"
+    >
       <header className="flex items-center gap-3 p-4 border-b border-white/10 bg-black/30">
         <div className="text-brand-teal" aria-hidden="true">
           <React.Suspense fallback={<Bot size={24} />}>
@@ -124,10 +132,10 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
           </React.Suspense>
         </div>
         <div>
-          <h2 className="font-semibold text-lg leading-tight text-brand-text">{t.assistantTitle}</h2>
-          <div className="flex items-center gap-1.5 text-xs text-brand-green">
-            {t.online}
-          </div>
+          <h2 className="font-semibold text-lg leading-tight text-brand-text">
+            {t.assistantTitle}
+          </h2>
+          <div className="flex items-center gap-1.5 text-xs text-brand-green">{t.online}</div>
         </div>
       </header>
 
@@ -144,22 +152,26 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
               key={msg.id}
               initial={{ opacity: 0, rotateX: 90, z: -100 }}
               animate={{ opacity: 1, rotateX: 0, z: 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              style={{ transformStyle: "preserve-3d" }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              style={{ transformStyle: 'preserve-3d' }}
               className={`flex items-end gap-2 max-w-[85%] ${msg.sender === 'user' ? 'self-end flex-row-reverse' : 'self-start'}`}
             >
               <div
-                className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 shadow-lg ${msg.sender === 'ai' ? 'bg-gradient-to-br from-brand-teal to-brand-green text-brand-dark' : 'bg-brand-text/10 text-brand-text'
-                  }`}
+                className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 shadow-lg ${
+                  msg.sender === 'ai'
+                    ? 'bg-gradient-to-br from-brand-teal to-brand-green text-brand-dark'
+                    : 'bg-brand-text/10 text-brand-text'
+                }`}
                 aria-hidden="true"
               >
                 {msg.sender === 'ai' ? <Bot size={14} /> : <User size={14} />}
               </div>
               <div
-                className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-lg ${msg.sender === 'user'
+                className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed shadow-lg ${
+                  msg.sender === 'user'
                     ? 'bg-brand-text/10 text-brand-text ltr:rounded-br-sm rtl:rounded-bl-sm border border-brand-text/5'
                     : 'bg-black/40 border border-brand-teal/30 text-brand-text ltr:rounded-bl-sm rtl:rounded-br-sm'
-                  }`}
+                }`}
               >
                 {msg.text}
               </div>
@@ -171,14 +183,15 @@ const AIChatWidgetContent: React.FC<AIChatWidgetProps> = ({ role }) => {
           <motion.div
             initial={{ opacity: 0, rotateX: 90 }}
             animate={{ opacity: 1, rotateX: 0 }}
-            style={{ transformStyle: "preserve-3d" }}
+            style={{ transformStyle: 'preserve-3d' }}
             className="flex items-end gap-2 self-start max-w-[85%]"
           >
             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-brand-teal to-brand-green text-brand-dark flex items-center justify-center shrink-0">
               <Bot size={14} />
             </div>
             <div className="px-4 py-2.5 rounded-2xl bg-black/40 border border-brand-teal/30 ltr:rounded-bl-sm rtl:rounded-br-sm text-sm text-brand-text/70 italic flex items-center gap-2">
-              <Loader2 size={14} className="animate-spin text-brand-teal" aria-hidden="true" /> {t.thinking}
+              <Loader2 size={14} className="animate-spin text-brand-teal" aria-hidden="true" />{' '}
+              {t.thinking}
             </div>
           </motion.div>
         )}

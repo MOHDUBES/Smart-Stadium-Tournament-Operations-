@@ -61,7 +61,7 @@ app.post('/api/chat', async (req, res) => {
     const response = await model.generateContent(prompt);
     
     res.json({ text: response.response.text() });
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: 'Failed to generate response' });
   }
 });
@@ -74,6 +74,4 @@ app.use((req, res) => {
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Secure Server running on port ${port}`);
-});
+app.listen(port);

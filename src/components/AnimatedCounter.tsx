@@ -12,7 +12,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   value,
   format = (val) => Math.floor(val).toLocaleString(),
   duration = 1.5,
-  className = ""
+  className = '',
 }) => {
   const [mounted, setMounted] = useState(false);
   const spring = useSpring(0, {
@@ -27,11 +27,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     spring.set(value);
   }, [value, spring]);
 
-  return (
-    <motion.span className={className}>
-      {mounted ? display : format(0)}
-    </motion.span>
-  );
+  return <motion.span className={className}>{mounted ? display : format(0)}</motion.span>;
 };
 
 export default React.memo(AnimatedCounter);

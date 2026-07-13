@@ -13,7 +13,7 @@ interface State {
 
 class ErrorBoundary extends Component<Props, State> {
   public state: State = {
-    hasError: false
+    hasError: false,
   };
 
   public static getDerivedStateFromError(_: Error): State {
@@ -33,7 +33,9 @@ class ErrorBoundary extends Component<Props, State> {
         <div className="glass-panel p-6 flex flex-col items-center justify-center text-center h-full min-h-[200px]">
           <AlertTriangle size={32} className="text-amber-500 mb-4" />
           <h2 className="text-xl font-bold text-brand-text mb-2">Something went wrong</h2>
-          <p className="text-brand-text/60">We encountered an unexpected error loading this component. Please refresh the page.</p>
+          <p className="text-brand-text/60">
+            We encountered an unexpected error loading this component. Please refresh the page.
+          </p>
         </div>
       );
     }

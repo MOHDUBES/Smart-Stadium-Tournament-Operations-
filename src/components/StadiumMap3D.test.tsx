@@ -13,22 +13,24 @@ import StadiumMap3D from './StadiumMap3D';
 // Mock framer-motion to avoid complex 3D rendering issues in JSDOM
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => <div {...props}>{children}</div>
+    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+      <div {...props}>{children}</div>
+    ),
   },
-  AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>
+  AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
 }));
 
 // Mock react-three-fiber to prevent WebGL crash in JSDOM
 vi.mock('@react-three/fiber', () => ({
   Canvas: ({ children }: React.PropsWithChildren) => <div>{children}</div>,
   useFrame: () => {},
-  useThree: () => ({ camera: {}, scene: {} })
+  useThree: () => ({ camera: {}, scene: {} }),
 }));
 vi.mock('@react-three/drei', () => ({
   OrbitControls: () => null,
   Environment: () => null,
   Html: ({ children }: React.PropsWithChildren) => <div>{children}</div>,
-  useGLTF: () => ({ scene: {}, nodes: {}, materials: {} })
+  useGLTF: () => ({ scene: {}, nodes: {}, materials: {} }),
 }));
 
 describe('StadiumMap3D', () => {

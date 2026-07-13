@@ -10,7 +10,7 @@ describe('stadiumUtils', () => {
         { id: '2', name: 'Gate 2', waitTimeMinutes: 45, capacityPercent: 90 },
         { id: '3', name: 'Gate 3', waitTimeMinutes: 5, capacityPercent: 10 },
       ];
-      
+
       const worst = getWorstWaitTimeGate(mockGates);
       expect(worst?.id).toBe('2');
     });

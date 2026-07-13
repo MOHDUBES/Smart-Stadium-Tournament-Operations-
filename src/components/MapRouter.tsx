@@ -29,24 +29,21 @@ export const MapRouter: React.FC<MapRouterProps> = ({ fromPoint, toPoint, routin
 
     // Road routing using OSRM
     const routingControl = L.Routing.control({
-      waypoints: [
-        L.latLng(fromPoint[0], fromPoint[1]),
-        L.latLng(toPoint[0], toPoint[1])
-      ],
+      waypoints: [L.latLng(fromPoint[0], fromPoint[1]), L.latLng(toPoint[0], toPoint[1])],
       routeWhileDragging: false,
       showAlternatives: false,
       fitSelectedRoutes: true,
       lineOptions: {
         styles: [{ color: '#2FBF9F', weight: 5, opacity: 0.9 }],
         extendToWaypoints: true,
-        missingRouteTolerance: 0
+        missingRouteTolerance: 0,
       },
       show: false, // Hide ugly default turn-by-turn instructions box
       createMarker: (i, waypoint) => {
         return L.marker(waypoint.latLng, {
-          icon: DefaultIcon
+          icon: DefaultIcon,
         }).bindPopup(i === 0 ? 'Start' : 'Destination');
-      }
+      },
     }).addTo(map);
 
     return () => {
@@ -65,7 +62,7 @@ export const MapRouter: React.FC<MapRouterProps> = ({ fromPoint, toPoint, routin
     // Generate a slightly curved or simple multi-point path for interior walking
     const midPoint: [number, number] = [
       (fromPoint[0] + toPoint[0]) / 2,
-      fromPoint[1] // slight bend
+      fromPoint[1], // slight bend
     ];
 
     const path = [fromPoint, midPoint, toPoint];

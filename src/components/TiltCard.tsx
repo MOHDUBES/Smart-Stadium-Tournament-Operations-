@@ -12,14 +12,14 @@ interface TiltCardProps {
   'aria-label'?: string;
 }
 
-const TiltCard: React.FC<TiltCardProps> = ({ 
-  children, 
-  className = '', 
-  onClick, 
-  onKeyDown, 
-  role, 
-  tabIndex, 
-  'aria-label': ariaLabel 
+const TiltCard: React.FC<TiltCardProps> = ({
+  children,
+  className = '',
+  onClick,
+  onKeyDown,
+  role,
+  tabIndex,
+  'aria-label': ariaLabel,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { highContrast } = useAppStore();
@@ -40,21 +40,21 @@ const TiltCard: React.FC<TiltCardProps> = ({
   // Map to shadow offset
   const shadowX = useTransform(mouseXSpring, [-0.5, 0.5], [-15, 15]);
   const shadowY = useTransform(mouseYSpring, [-0.5, 0.5], [-15, 15]);
-  
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (highContrast || !ref.current) return;
-    
+
     const rect = ref.current.getBoundingClientRect();
-    
+
     const width = rect.width;
     const height = rect.height;
-    
+
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
-    
+
     const xPct = mouseX / width - 0.5;
     const yPct = mouseY / height - 0.5;
-    
+
     x.set(xPct);
     y.set(yPct);
   };
@@ -79,7 +79,7 @@ const TiltCard: React.FC<TiltCardProps> = ({
       style={{
         rotateX: highContrast ? 0 : rotateX,
         rotateY: highContrast ? 0 : rotateY,
-        transformStyle: "preserve-3d",
+        transformStyle: 'preserve-3d',
       }}
       animate={{
         z: isHovered && !highContrast ? 20 : 0,
@@ -91,11 +91,10 @@ const TiltCard: React.FC<TiltCardProps> = ({
       <motion.div
         className="absolute inset-0 z-[-1] rounded-2xl pointer-events-none"
         style={{
-          boxShadow: useTransform(
-            [shadowX, shadowY],
-            ([sx, sy]) => highContrast 
-              ? 'none' 
-              : isHovered 
+          boxShadow: useTransform([shadowX, shadowY], ([sx, sy]) =>
+            highContrast
+              ? 'none'
+              : isHovered
                 ? `${sx}px ${sy}px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(47, 191, 159, 0.2)`
                 : '0 15px 35px -5px rgba(0,0,0,0.5)'
           ),

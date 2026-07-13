@@ -1,4 +1,4 @@
-# PitchMind 🏟️
+﻿# PitchMind 🏟️
 ### AI-Powered Smart Stadium & Tournament Operations Platform
 
 > *"Every fan deserves a personal guide. Every volunteer needs real-time intelligence. Every organizer wants command-level clarity. PitchMind delivers all three — simultaneously."*
@@ -6,36 +6,6 @@
 PitchMind is a smart, dynamic web application designed to help individuals and organizers manage large-scale events, smart stadium, and tournament operations through personalized AI-driven insights and actionable recommendations.
 
 ### 🚀 [Live Demo Available Here](https://smart-stadium-tournament-operations.vercel.app/)
-
-[![Tests Passing](https://img.shields.io/badge/tests-68%20passing-brightgreen)](./src)
-[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)](./vite.config.ts)
-[![Build](https://img.shields.io/badge/build-passing-brightgreen)](./vite.config.ts)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue)](./tsconfig.json)
-[![Offline Ready](https://img.shields.io/badge/offline-fully%20functional-orange)](./src/services/aiService.ts)
-[![WCAG](https://img.shields.io/badge/WCAG-2.1%20AA-green)](./src/components/AccessibilityMenu.tsx)
-[![React](https://img.shields.io/badge/React-19-61DAFB)](./package.json)
-[![Vite](https://img.shields.io/badge/Vite-8-646CFF)](./vite.config.ts)
-
----
-
-## 📋 Table of Contents
-
-1. [Problem Statement](#-the-problem)
-2. [Solution Overview](#-solution-overview)
-3. [Key Features & Innovations](#-key-features--innovations)
-4. [Technical Architecture](#-technical-architecture)
-5. [Technology Stack](#-technology-stack)
-6. [Project Structure](#-project-structure)
-7. [Setup & Installation](#-setup--installation)
-8. [Security & Technical Excellence](#-security--technical-excellence)
-9. [Accessibility](#-accessibility)
-10. [Testing](#-testing)
-11. [Design Decisions](#-design-decisions)
-12. [Known Limitations](#-known-limitations)
-13. [Screenshots](#-screenshots)
-14. [Technical Specifications](#-technical-specifications)
-
----
 
 ## 🏆 Alignment with Hack2Skill Promptwire Challenge 4
 This project was specifically architected to directly solve the **Promptwire Challenge 4** by **Hack2Skill** problem statement: *Managing large-scale events, smart stadium, and tournament operations.* 

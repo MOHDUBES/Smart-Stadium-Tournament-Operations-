@@ -10,7 +10,7 @@ describe('AccessibilityMenu', () => {
     useAppStore.setState({
       language: 'en',
       highContrast: false,
-      fontSize: 'normal'
+      fontSize: 'normal',
     });
   });
 
@@ -22,14 +22,14 @@ describe('AccessibilityMenu', () => {
   it('toggles menu open and closed', () => {
     render(<AccessibilityMenu />);
     const mainButton = screen.getByRole('button', { name: /settings/i });
-    
+
     // Initially closed
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    
+
     // Open menu
     fireEvent.click(mainButton);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
-    
+
     // Close menu
     fireEvent.click(mainButton);
   });
@@ -37,12 +37,12 @@ describe('AccessibilityMenu', () => {
   it('toggles high contrast mode', () => {
     render(<AccessibilityMenu />);
     fireEvent.click(screen.getByRole('button', { name: /settings/i })); // Open menu
-    
+
     const contrastBtn = screen.getByText(/High Contrast/i).closest('button');
     fireEvent.click(contrastBtn!);
-    
+
     expect(useAppStore.getState().highContrast).toBe(true);
-    
+
     fireEvent.click(contrastBtn!);
     expect(useAppStore.getState().highContrast).toBe(false);
   });
@@ -50,12 +50,12 @@ describe('AccessibilityMenu', () => {
   it('toggles large text mode', () => {
     render(<AccessibilityMenu />);
     fireEvent.click(screen.getByRole('button', { name: /settings/i }));
-    
+
     const textBtn = screen.getByText(/Large Text/i).closest('button');
     fireEvent.click(textBtn!);
-    
+
     expect(useAppStore.getState().fontSize).toBe('large');
-    
+
     fireEvent.click(textBtn!);
     expect(useAppStore.getState().fontSize).toBe('normal');
   });
@@ -63,15 +63,15 @@ describe('AccessibilityMenu', () => {
   it('changes language', () => {
     render(<AccessibilityMenu />);
     fireEvent.click(screen.getByRole('button', { name: /settings/i }));
-    
+
     const esBtn = screen.getByText('ES');
     fireEvent.click(esBtn);
     expect(useAppStore.getState().language).toBe('es');
-    
+
     const arBtn = screen.getByText('AR');
     fireEvent.click(arBtn);
     expect(useAppStore.getState().language).toBe('ar');
-    
+
     const enBtn = screen.getByText('EN');
     fireEvent.click(enBtn);
     expect(useAppStore.getState().language).toBe('en');

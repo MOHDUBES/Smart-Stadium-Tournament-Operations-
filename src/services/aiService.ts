@@ -3,7 +3,7 @@ import DOMPurify from 'dompurify';
 export interface ChatContext {
   role: 'fan' | 'volunteer' | 'organizer';
   location?: string;
-  stadiumState?: any;
+  stadiumState?: import('../types').StadiumData;
 }
 
 let lastCallTime = 0;
@@ -11,9 +11,21 @@ const API_COOLDOWN = 2000; // 2 seconds
 
 // Fallback responses (Mock offline mode)
 const fallbackResponses = {
-  fan: ["Looks like the food stands are busy. Try the East concourse!", "Gate 2 is clear right now. Have a great match!", "You can find your seat in Sector B down this hallway."],
-  volunteer: ["Please check Gate 3, crowd density is rising.", "Incident logged. Proceed to Sector A immediately.", "Medical team dispatched to your location."],
-  organizer: ["Crowd flow is optimal. 85% capacity reached.", "Warning: Gate 4 wait times exceeding 15 mins.", "All systems normal. Revenue projection updated."]
+  fan: [
+    'Looks like the food stands are busy. Try the East concourse!',
+    'Gate 2 is clear right now. Have a great match!',
+    'You can find your seat in Sector B down this hallway.',
+  ],
+  volunteer: [
+    'Please check Gate 3, crowd density is rising.',
+    'Incident logged. Proceed to Sector A immediately.',
+    'Medical team dispatched to your location.',
+  ],
+  organizer: [
+    'Crowd flow is optimal. 85% capacity reached.',
+    'Warning: Gate 4 wait times exceeding 15 mins.',
+    'All systems normal. Revenue projection updated.',
+  ],
 };
 
 export const generateAIResponse = async (prompt: string, context: ChatContext): Promise<string> => {
@@ -24,8 +36,8 @@ export const generateAIResponse = async (prompt: string, context: ChatContext): 
       body: JSON.stringify({
         message: prompt,
         context: context.stadiumState,
-        mode: context.role
-      })
+        mode: context.role,
+      }),
     });
 
     if (!response.ok) {

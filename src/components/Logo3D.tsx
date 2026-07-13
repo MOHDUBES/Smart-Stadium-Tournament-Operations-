@@ -84,10 +84,7 @@ const AICoreGeometry = () => {
 const Logo3D: React.FC = () => {
   return (
     <div className="w-40 h-40 mx-auto mb-4 relative" role="img" aria-label="PitchMind 3D Logo">
-      <Canvas
-        camera={{ position: [0, 0, 6], fov: 50 }}
-        style={{ pointerEvents: 'none' }}
-      >
+      <Canvas camera={{ position: [0, 0, 6], fov: 50 }} style={{ pointerEvents: 'none' }}>
         <ambientLight intensity={2} />
         <directionalLight position={[5, 5, 5]} intensity={2} />
         <directionalLight position={[-5, -5, -5]} color="#2FBF9F" intensity={1} />
@@ -98,7 +95,9 @@ const Logo3D: React.FC = () => {
       {/* 2D Text Overlay - styled as a sleek glass badge inside the core */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div className="bg-brand-dark/40 backdrop-blur-md px-4 py-2 rounded-xl border border-brand-teal/40 shadow-[0_0_20px_rgba(47,191,159,0.4)]">
-          <span className="text-brand-text font-bold text-2xl tracking-widest drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">PM</span>
+          <span className="text-brand-text font-bold text-2xl tracking-widest drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+            PM
+          </span>
         </div>
       </div>
     </div>

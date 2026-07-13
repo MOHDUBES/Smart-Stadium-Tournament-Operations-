@@ -13,14 +13,14 @@ describe('useAppStore', () => {
       fontSize: 'normal',
       tasks: [
         { id: '1', text: 'Task 1', completed: false },
-        { id: '2', text: 'Task 2', completed: false }
+        { id: '2', text: 'Task 2', completed: false },
       ],
       stadiumData: {
         crowdDensity: 50,
         gates: [{ id: 'g1', name: 'Gate 1', waitTimeMinutes: 5, status: 'normal' }],
-        incidents: []
+        incidents: [],
       } as unknown as StadiumData,
-      externalChatQuery: null
+      externalChatQuery: null,
     });
   });
 

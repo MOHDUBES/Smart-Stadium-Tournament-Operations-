@@ -47,7 +47,9 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
             <TiltCard className="glass-panel p-5 flex items-center justify-between">
               <div>
                 <p className="text-sm text-brand-text/60 mb-1">{t.totalCrowd}</p>
-                <div className="text-3xl font-bold text-brand-text"><AnimatedCounter value={stadiumData.overallCrowd.totalFans} /></div>
+                <div className="text-3xl font-bold text-brand-text">
+                  <AnimatedCounter value={stadiumData.overallCrowd.totalFans} />
+                </div>
               </div>
               <div className="bg-brand-teal/20 p-4 rounded-xl">
                 <Users size={28} className="text-brand-teal" />
@@ -56,7 +58,9 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
             <TiltCard className="glass-panel p-5 flex items-center justify-between">
               <div>
                 <p className="text-sm text-brand-text/60 mb-1">{t.liveIncidents}</p>
-                <div className="text-3xl font-bold text-amber-500"><AnimatedCounter value={stadiumData.incidents.length} /></div>
+                <div className="text-3xl font-bold text-amber-500">
+                  <AnimatedCounter value={stadiumData.incidents.length} />
+                </div>
               </div>
               <div className="bg-amber-500/20 p-4 rounded-xl">
                 <AlertTriangle size={28} className="text-amber-500" />
@@ -78,11 +82,10 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
               ) : (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   <div className="text-4xl font-bold mb-1 text-brand-text">
-                    <AnimatedCounter value={worstGate.waitTimeMinutes} /> <span className="text-xl font-normal text-brand-text/60">{t.mins}</span>
+                    <AnimatedCounter value={worstGate.waitTimeMinutes} />{' '}
+                    <span className="text-xl font-normal text-brand-text/60">{t.mins}</span>
                   </div>
-                  <div className="text-amber-400 text-sm font-medium">
-                    at {worstGate.name}
-                  </div>
+                  <div className="text-amber-400 text-sm font-medium">at {worstGate.name}</div>
                 </motion.div>
               )}
             </TiltCard>
@@ -93,7 +96,9 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
           </section>
 
           <TiltCard className="glass-panel p-6">
-            <h2 className="text-xl font-semibold mb-4 text-brand-text border-b border-white/10 pb-2">{t.broadcastAlert}</h2>
+            <h2 className="text-xl font-semibold mb-4 text-brand-text border-b border-white/10 pb-2">
+              {t.broadcastAlert}
+            </h2>
             <div className="flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
@@ -101,7 +106,7 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
                 className="flex-1 bg-black/40 border border-brand-text/10 rounded-xl px-4 py-3 text-brand-text placeholder:text-brand-text/40 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
                 placeholder="Enter message for all staff/fans..."
                 value={broadcastMsg}
-                onChange={e => setBroadcastMsg(e.target.value)}
+                onChange={(e) => setBroadcastMsg(e.target.value)}
               />
               <button
                 className="btn bg-gradient-to-br from-amber-500 to-orange-600 text-brand-dark shadow-[0_4px_15px_rgba(245,158,11,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(245,158,11,0.4)] px-6"
@@ -120,7 +125,12 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
             </div>
             <AnimatePresence>
               {broadcastSuccess && (
-                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-3 text-brand-green text-sm flex items-center gap-2 bg-brand-green/10 p-2 rounded-lg border border-brand-green/20">
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="mt-3 text-brand-green text-sm flex items-center gap-2 bg-brand-green/10 p-2 rounded-lg border border-brand-green/20"
+                >
                   <Activity size={16} /> Broadcast successfully sent to all channels.
                 </motion.div>
               )}
@@ -128,28 +138,38 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
           </TiltCard>
 
           <TiltCard className="glass-panel p-6">
-            <h2 className="text-xl font-semibold mb-4 text-brand-text border-b border-white/10 pb-2">Tournament Operations & Schedule</h2>
+            <h2 className="text-xl font-semibold mb-4 text-brand-text border-b border-white/10 pb-2">
+              Tournament Operations & Schedule
+            </h2>
             <div className="flex flex-col gap-3">
-               <div className="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/5">
-                 <div>
-                   <h3 className="text-brand-text font-medium">Quarter Final: Team A vs Team B</h3>
-                   <p className="text-brand-text/60 text-sm">Today, 18:00 • Main Stadium</p>
-                 </div>
-                 <span className="text-brand-green text-sm px-2 py-1 bg-brand-green/10 rounded border border-brand-green/20">On Schedule</span>
-               </div>
-               <div className="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/5">
-                 <div>
-                   <h3 className="text-brand-text font-medium">Semi Final: Team C vs Team D</h3>
-                   <p className="text-brand-text/60 text-sm">Tomorrow, 20:00 • Main Stadium</p>
-                 </div>
-                 <span className="text-amber-500 text-sm px-2 py-1 bg-amber-500/10 rounded border border-amber-500/20">Pending</span>
-               </div>
+              <div className="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/5">
+                <div>
+                  <h3 className="text-brand-text font-medium">Quarter Final: Team A vs Team B</h3>
+                  <p className="text-brand-text/60 text-sm">Today, 18:00 • Main Stadium</p>
+                </div>
+                <span className="text-brand-green text-sm px-2 py-1 bg-brand-green/10 rounded border border-brand-green/20">
+                  On Schedule
+                </span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/5">
+                <div>
+                  <h3 className="text-brand-text font-medium">Semi Final: Team C vs Team D</h3>
+                  <p className="text-brand-text/60 text-sm">Tomorrow, 20:00 • Main Stadium</p>
+                </div>
+                <span className="text-amber-500 text-sm px-2 py-1 bg-amber-500/10 rounded border border-amber-500/20">
+                  Pending
+                </span>
+              </div>
             </div>
           </TiltCard>
 
           <AnimatePresence>
             {showIncidentForm && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+              >
                 <IncidentForm onClose={() => setShowIncidentForm(false)} />
               </motion.div>
             )}
@@ -158,35 +178,59 @@ const OrganizerDashboard: React.FC<Props> = ({ onLogout }) => {
           <TiltCard className="glass-panel p-6">
             <div className="flex justify-between items-center mb-5 border-b border-white/10 pb-2">
               <h2 className="text-xl font-semibold text-brand-text">{t.liveIncidents}</h2>
-              <button onClick={() => setShowIncidentForm(!showIncidentForm)} className="btn btn-glass py-1 px-3 text-sm" aria-label={t.reportIncident} aria-expanded={showIncidentForm}>
-                <AlertTriangle size={14} className="text-red-500" aria-hidden="true" /> {t.reportIncident}
+              <button
+                onClick={() => setShowIncidentForm(!showIncidentForm)}
+                className="btn btn-glass py-1 px-3 text-sm"
+                aria-label={t.reportIncident}
+                aria-expanded={showIncidentForm}
+              >
+                <AlertTriangle size={14} className="text-red-500" aria-hidden="true" />{' '}
+                {t.reportIncident}
               </button>
             </div>
             <ul className="flex flex-col gap-3">
-              {loading ? (
-                Array.from({ length: 2 }).map((_, i) => (
-                  <li key={i} className="flex gap-4 p-4 bg-black/20 border border-white/5 rounded-xl">
-                    <div className="w-5 h-5 skeleton rounded-full mt-1 shrink-0" />
-                    <div className="flex-1">
-                      <div className="h-5 w-48 skeleton rounded mb-2" />
-                      <div className="h-4 w-32 skeleton rounded" />
-                    </div>
-                  </li>
-                ))
-              ) : (
-                stadiumData.incidents.map(inc => (
-                  <motion.li initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={inc.id} className="flex gap-4 p-4 bg-black/20 border border-white/5 rounded-xl">
-                    <div className="mt-1">
-                      <AlertCircle size={22} className={inc.status === 'active' ? 'text-red-500 animate-pulse' : 'text-brand-green'} aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-brand-text">{inc.title}</h3>
-                      <p className="text-brand-text/60 text-sm capitalize mt-1">{inc.type} • {inc.status}</p>
-                      <span className="text-xs font-medium text-brand-text/40 bg-black/40 px-2 py-0.5 rounded-full mt-2 inline-block">{inc.timeAgo}</span>
-                    </div>
-                  </motion.li>
-                ))
-              )}
+              {loading
+                ? Array.from({ length: 2 }).map((_, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-4 p-4 bg-black/20 border border-white/5 rounded-xl"
+                    >
+                      <div className="w-5 h-5 skeleton rounded-full mt-1 shrink-0" />
+                      <div className="flex-1">
+                        <div className="h-5 w-48 skeleton rounded mb-2" />
+                        <div className="h-4 w-32 skeleton rounded" />
+                      </div>
+                    </li>
+                  ))
+                : stadiumData.incidents.map((inc) => (
+                    <motion.li
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      key={inc.id}
+                      className="flex gap-4 p-4 bg-black/20 border border-white/5 rounded-xl"
+                    >
+                      <div className="mt-1">
+                        <AlertCircle
+                          size={22}
+                          className={
+                            inc.status === 'active'
+                              ? 'text-red-500 animate-pulse'
+                              : 'text-brand-green'
+                          }
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-brand-text">{inc.title}</h3>
+                        <p className="text-brand-text/60 text-sm capitalize mt-1">
+                          {inc.type} • {inc.status}
+                        </p>
+                        <span className="text-xs font-medium text-brand-text/40 bg-black/40 px-2 py-0.5 rounded-full mt-2 inline-block">
+                          {inc.timeAgo}
+                        </span>
+                      </div>
+                    </motion.li>
+                  ))}
             </ul>
           </TiltCard>
         </div>

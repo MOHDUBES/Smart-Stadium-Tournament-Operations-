@@ -4,7 +4,7 @@ import { sanitizeInput } from './sanitize';
 describe('sanitizeInput', () => {
   it('returns empty string if input is falsy', () => {
     expect(sanitizeInput('')).toBe('');
-    expect(sanitizeInput((null as unknown) as string)).toBe('');
+    expect(sanitizeInput(null as unknown as string)).toBe('');
   });
 
   it('removes HTML tags and attributes', () => {
