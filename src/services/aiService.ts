@@ -17,12 +17,6 @@ const fallbackResponses = {
 };
 
 export const generateAIResponse = async (prompt: string, context: ChatContext): Promise<string> => {
-  const now = Date.now();
-  if (now - lastCallTime < API_COOLDOWN) {
-    return "Please wait a moment before sending another message.";
-  }
-  lastCallTime = now;
-
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
