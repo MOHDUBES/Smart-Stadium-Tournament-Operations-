@@ -34,10 +34,10 @@
 ---
 
 ## 🏆 Alignment with Hack2Skill Promptwire Challenge 4
-This project was specifically architected to directly solve the **Promptwire Challenge 4** problem statement: *Managing large-scale events and smart stadium tournament operations.* 
+This project was specifically architected to directly solve the **Promptwire Challenge 4** by **Hack2Skill** problem statement: *Managing large-scale events, smart stadium, and tournament operations.* 
 
-By utilizing **Generative AI (Google Gemini)** as the core brain of the platform, PitchMind successfully tackles the challenge's core requirements:
-- **Scalable Operations:** Replaces manual crowd control and fragmented communication with an AI copilot.
+By utilizing **Generative AI (Google Gemini AI)** as the core brain of the platform, PitchMind successfully tackles the challenge's core requirements:
+- **Scalable Tournament Operations:** Replaces manual crowd control and fragmented communication with an AI copilot.
 - **Role-based Intelligence:** Provides highly specific, filtered data tailored for Fans, Volunteers, and Organizers.
 - **Real-Time Responsiveness:** Employs an offline-first architecture with instantaneous UI state updates and predictive crowd insights.
 

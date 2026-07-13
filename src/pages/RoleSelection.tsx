@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
 import { Ticket, Users, ShieldAlert } from 'lucide-react';
 import { useAppStore } from '../store/useStore';
 import type { UserRole } from '../types';
@@ -14,7 +13,7 @@ const RoleSelection: React.FC = () => {
   const language = useAppStore((state) => state.language);
   const t = translations[language];
 
-  const containerVariants: Variants = {
+  const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -22,7 +21,7 @@ const RoleSelection: React.FC = () => {
     }
   };
 
-  const itemVariants: Variants = {
+  const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     show: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 24 } }
   };

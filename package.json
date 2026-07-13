@@ -2,6 +2,8 @@
   "name": "PitchMind",
   "private": true,
   "version": "0.0.0",
+  "description": "PitchMind - AI-Powered Smart Stadium & Tournament Operations Platform built for Promptwire Challenge 4 by Hack2Skill. A scalable solution for managing stadium navigation, volunteer operations, and crowd control using Generative AI.",
+  "keywords": ["Hack2Skill", "Promptwire Challenge 4", "Smart Stadium", "Tournament Operations", "React", "Gemini AI"],
   "type": "module",
   "scripts": {
     "dev": "node node_modules/vite/bin/vite.js --host",

@@ -16,7 +16,7 @@ describe('languageUtils', () => {
   });
 
   it('falls back to the raw key if it does not exist in the language', () => {
-    // @ts-ignore - testing invalid key
+    // testing invalid key
     expect(getTranslation('en', 'nonExistentKey123')).toBe('nonExistentKey123');
   });
 });

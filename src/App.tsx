@@ -1,6 +1,5 @@
 import { useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Variants } from 'framer-motion';
 import Background3D from './components/Background3D';
 import RoleSelection from './pages/RoleSelection';
 import AccessibilityMenu from './components/AccessibilityMenu';
@@ -40,11 +39,11 @@ function App() {
     }
   }, [language, highContrast, fontSize]);
 
-  const flipVariants: Variants = {
+  const flipVariants = {
     initial: { rotateY: 90, opacity: 0 },
-    animate: { rotateY: 0, opacity: 1, transition: { duration: 0.6, type: 'spring', bounce: 0.4 } },
+    animate: { rotateY: 0, opacity: 1, transition: { duration: 0.6, type: 'spring' as const, bounce: 0.4 } },
     exit: { opacity: 0, rotateY: 90, scale: 0.9, z: -200 },
-    transition: { type: "spring", stiffness: 200, damping: 20 }
+    transition: { type: "spring" as const, stiffness: 200, damping: 20 }
   };
 
   return (
