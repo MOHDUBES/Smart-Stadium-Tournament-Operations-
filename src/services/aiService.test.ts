@@ -68,126 +68,126 @@ describe('aiService', () => {
   } as unknown as StadiumData;
 
   it('should fall back to mock logic when API fails or no key is present', async () => {
-    const response = await generateAIResponse('lost', 'fan', mockData);
+    const response = await generateAIResponse('lost', { role: 'fan' as any, stadiumState: mockData });
     expect(response.length).toBeGreaterThan(5);
   });
 
   describe('fan responses', () => {
     it('handles lost queries', async () => {
-      const res = await generateAIResponse('where am i', 'fan', mockData);
+      const res = await generateAIResponse('where am i', { role: 'fan' as any, stadiumState: mockData });
       expect(res.length).toBeGreaterThan(5);
     });
     it('handles gate queries', async () => {
-      const res = await generateAIResponse('find gate', 'fan', mockData);
+      const res = await generateAIResponse('find gate', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('teal lane markers');
     });
     it('handles food queries', async () => {
-      const res = await generateAIResponse('hungry', 'fan', mockData);
+      const res = await generateAIResponse('hungry', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('Burger');
     });
     it('handles restroom queries', async () => {
-      const res = await generateAIResponse('toilet', 'fan', mockData);
+      const res = await generateAIResponse('toilet', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('Restroom 1');
     });
     it('handles seat queries', async () => {
-      const res = await generateAIResponse('my seat', 'fan', mockData);
+      const res = await generateAIResponse('my seat', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('Sector B, Row 12');
     });
     it('handles match stats queries', async () => {
-      const res = await generateAIResponse('score', 'fan', mockData);
+      const res = await generateAIResponse('score', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('Home team leads');
     });
     it('handles wheelchair queries', async () => {
-      const res = await generateAIResponse('accessible', 'fan', mockData);
+      const res = await generateAIResponse('accessible', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('Wheelchair-accessible');
     });
     it('handles wait queries', async () => {
-      const res = await generateAIResponse('queue', 'fan', mockData);
+      const res = await generateAIResponse('queue', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('shortest entry queue');
     });
     it('handles default fan query', async () => {
-      const res = await generateAIResponse('hello', 'fan', mockData);
+      const res = await generateAIResponse('hello', { role: 'fan' as any, stadiumState: mockData });
       expect(res).toContain('navigation');
     });
   });
 
   describe('volunteer responses', () => {
     it('handles incident queries', async () => {
-      const res = await generateAIResponse('report incident', 'volunteer', mockData);
+      const res = await generateAIResponse('report incident', { role: 'volunteer' as any, stadiumState: mockData });
       expect(res.toLowerCase()).toContain('location');
     });
     it('handles translate queries', async () => {
-      const res = await generateAIResponse('translate', 'volunteer', mockData);
+      const res = await generateAIResponse('translate', { role: 'volunteer' as any, stadiumState: mockData });
       expect(res).toContain('Ready to translate');
     });
     it('handles map queries', async () => {
-      const res = await generateAIResponse('map', 'volunteer', mockData);
+      const res = await generateAIResponse('map', { role: 'volunteer' as any, stadiumState: mockData });
       expect(res).toContain('North Gate 1');
     });
     it('handles task queries', async () => {
-      const res = await generateAIResponse('task', 'volunteer', mockData);
+      const res = await generateAIResponse('task', { role: 'volunteer' as any, stadiumState: mockData });
       expect(res).toContain('Guide VIP guests');
     });
     it('handles crowd queries', async () => {
-      const res = await generateAIResponse('density', 'volunteer', mockData);
+      const res = await generateAIResponse('density', { role: 'volunteer' as any, stadiumState: mockData });
       expect(res).toContain('Gate 4');
     });
     it('handles default volunteer query', async () => {
-      const res = await generateAIResponse('hello', 'volunteer', mockData);
+      const res = await generateAIResponse('hello', { role: 'volunteer' as any, stadiumState: mockData });
       expect(res).toContain('incident reporting');
     });
   });
 
   describe('organizer responses', () => {
     it('handles gate 4 queries', async () => {
-      const res = await generateAIResponse('gate 4', 'organizer', mockData);
+      const res = await generateAIResponse('gate 4', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('Gate 4 Critical');
     });
     it('handles density queries', async () => {
-      const res = await generateAIResponse('density', 'organizer', mockData);
+      const res = await generateAIResponse('density', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('88% capacity');
     });
     it('handles broadcast queries', async () => {
-      const res = await generateAIResponse('broadcast', 'organizer', mockData);
+      const res = await generateAIResponse('broadcast', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('Broadcast securely transmitted');
     });
     it('handles incident queries', async () => {
-      const res = await generateAIResponse('incident', 'organizer', mockData);
+      const res = await generateAIResponse('incident', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('1 active incident');
     });
     it('handles wait queries', async () => {
-      const res = await generateAIResponse('wait', 'organizer', mockData);
+      const res = await generateAIResponse('wait', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('Highest wait time');
     });
     it('handles staff queries', async () => {
-      const res = await generateAIResponse('staff', 'organizer', mockData);
+      const res = await generateAIResponse('staff', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('Current staff allocation');
     });
     it('handles default organizer query', async () => {
-      const res = await generateAIResponse('hello', 'organizer', mockData);
+      const res = await generateAIResponse('hello', { role: 'organizer' as any, stadiumState: mockData });
       expect(res).toContain('Command mode active');
     });
   });
 
   it('handles completely unrecognised queries', async () => {
-    const res = await generateAIResponse('ajsdklfjsdf', 'organizer' as import('../types').UserRole, mockData);
+    const res = await generateAIResponse('ajsdklfjsdf', { role: 'organizer' as any, stadiumState: mockData });
     expect(res).toContain('Command mode active');
-    const res2 = await generateAIResponse('ajsdklfjsdf', '' as import('../types').UserRole, mockData);
+    const res2 = await generateAIResponse('ajsdklfjsdf', { role: '' as any, stadiumState: mockData });
     expect(res2).toContain('rephrase');
   });
 
   it('handles empty amenities gracefully', async () => {
     const emptyData = { ...mockData, amenities: [] };
-    const resFood = await generateAIResponse('food', 'fan', emptyData);
+    const resFood = await generateAIResponse('food', { role: 'fan' as any, stadiumState: emptyData });
     expect(resFood).toContain('undefined'); // Because it returns undefined name/location if not found
     
-    const resRestroom = await generateAIResponse('restroom', 'fan', emptyData);
+    const resRestroom = await generateAIResponse('restroom', { role: 'fan' as any, stadiumState: emptyData });
     expect(resRestroom).toContain('undefined');
   });
 
   it('returns API response when successful', async () => {
     shouldFail = false;
-    const res = await generateAIResponse('hello', 'fan', mockData);
+    const res = await generateAIResponse('hello', { role: 'fan' as any, stadiumState: mockData });
     expect(res).toBe('Successful API response for test');
     shouldFail = true;
   });
