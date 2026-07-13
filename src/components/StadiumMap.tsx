@@ -2,22 +2,15 @@ import { Suspense, lazy, useState } from 'react';
 import { useAppStore } from '../store/useStore';
 import { translations } from '../data/translations';
 import { Map, Cuboid as Cube } from 'lucide-react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { MapContainer, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const StadiumMap3D = lazy(() => import('./StadiumMap3D'));
-
-const containerStyle = { width: '100%', height: '100%', borderRadius: '0.75rem' };
-const center = { lat: 25.276987, lng: 55.296249 }; // Example coordinate
 
 const StadiumMap: React.FC = () => {
   const language = useAppStore((state) => state.language);
   const t = translations[language];
   const [viewMode, setViewMode] = useState<'3d' | 'google'>('3d');
-
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "MOCK_API_KEY_FOR_DEMO" // Replace with actual API key in production
-  });
 
   return (
     <div className="glass-panel p-6 h-full flex flex-col">
@@ -50,15 +43,20 @@ const StadiumMap: React.FC = () => {
           <div className="w-8 h-8 border-4 border-brand-teal border-t-transparent rounded-full animate-spin"></div>
         </div>
       }>
-        <div className="flex-1 w-full relative min-h-[300px] overflow-hidden rounded-xl border border-white/5">
+        <div className="flex-1 w-full relative min-h-[300px] overflow-hidden rounded-xl border border-white/5" style={{ zIndex: 0 }}>
           {viewMode === '3d' ? (
             <StadiumMap3D />
           ) : (
-            isLoaded ? (
-              <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15} options={{ styles: [{ elementType: "geometry", stylers: [{ color: "#242f3e" }] }, { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] }, { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] }, { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] }] }}>
-                {/* Map markers would go here */}
-              </GoogleMap>
-            ) : <div className="text-white/50 text-center pt-20">Loading Map...</div>
+            <MapContainer 
+              center={[25.276987, 55.296249]} 
+              zoom={15} 
+              style={{ height: '100%', width: '100%', backgroundColor: '#1a1f2c' }}
+            >
+              <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+              />
+            </MapContainer>
           )}
         </div>
       </Suspense>
