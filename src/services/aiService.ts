@@ -6,8 +6,6 @@ export interface ChatContext {
   stadiumState?: import('../types').StadiumData;
 }
 
-let lastCallTime = 0;
-const API_COOLDOWN = 2000; // 2 seconds
 
 // Fallback responses (Mock offline mode)
 const fallbackResponses = {
@@ -46,7 +44,7 @@ export const generateAIResponse = async (prompt: string, context: ChatContext): 
 
     const data = await response.json();
     return validateAIResponse(data.text || "I'm sorry, I couldn't process that.");
-  } catch (error) {
+  } catch {
     // Offline / Mock Fallback
     const mockArray = fallbackResponses[context.role] || fallbackResponses.fan;
     const randomMock = mockArray[Math.floor(Math.random() * mockArray.length)];
@@ -83,7 +81,7 @@ export const generateTranslation = async (text: string, targetLang: string): Pro
 
     const data = await response.json();
     return validateAIResponse(data.text || text);
-  } catch (error) {
+  } catch {
     // Offline / Fallback
     return `[Offline] ${text}`;
   }

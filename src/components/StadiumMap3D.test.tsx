@@ -1,7 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import StadiumMap3D from './StadiumMap3D';
 
 // Mock ResizeObserver for JSDOM
 (window as unknown as { ResizeObserver: unknown }).ResizeObserver = class {

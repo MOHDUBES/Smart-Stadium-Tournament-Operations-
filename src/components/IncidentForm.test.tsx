@@ -13,7 +13,7 @@ describe('IncidentForm', () => {
         </MemoryRouter>
       );
       expect(container).toBeTruthy();
-    } catch (e) {
+    } catch {
       // Ignored for basic coverage
       expect(true).toBeTruthy();
     }

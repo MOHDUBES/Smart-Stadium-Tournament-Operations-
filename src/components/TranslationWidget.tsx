@@ -32,7 +32,7 @@ const TranslationWidgetContent: React.FC = () => {
 
       const result = await generateTranslation(cleanInput, targetLangName);
       setTranslatedText(result);
-    } catch (e) {
+    } catch {
       setTranslatedText('Translation error. Please try again.');
     } finally {
       setIsTranslating(false);

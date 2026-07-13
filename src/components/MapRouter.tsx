@@ -51,7 +51,7 @@ export const MapRouter: React.FC<MapRouterProps> = ({ fromPoint, toPoint, routin
         if (map && routingControl) {
           map.removeControl(routingControl);
         }
-      } catch (e) {
+      } catch {
         // Ignore Leaflet unmount errors
       }
     };
