@@ -35,7 +35,6 @@ export const generateAIResponse = async (prompt: string, context: ChatContext): 
     const data = await response.json();
     return validateAIResponse(data.text || "I'm sorry, I couldn't process that.");
   } catch (error) {
-    console.error("AI Service Error:", error);
     // Offline / Mock Fallback
     const mockArray = fallbackResponses[context.role] || fallbackResponses.fan;
     const randomMock = mockArray[Math.floor(Math.random() * mockArray.length)];

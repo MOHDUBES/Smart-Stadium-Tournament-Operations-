@@ -2,7 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import cors from 'cors';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -35,7 +35,7 @@ const apiLimiter = rateLimit({
 app.use('/api/', apiLimiter);
 
 // Initialize Gemini SDK with fallback key to prevent server crash during startup
-const ai = new GoogleGenAI(process.env.VITE_GEMINI_API_KEY ? { apiKey: process.env.VITE_GEMINI_API_KEY } : { apiKey: 'dummy-key-to-prevent-startup-crash' });
+const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY || 'dummy-key-to-prevent-startup-crash');
 
 app.post('/api/chat', async (req, res) => {
   try {
@@ -52,21 +52,15 @@ app.post('/api/chat', async (req, res) => {
       systemInstruction = "You are PitchMind, an AI assistant for tournament organizers. Provide data-driven, strategic, and analytical responses regarding crowd density, incidents, and stadium status.";
     }
 
-    let prompt = `User query: ${message}\n\n`;
+    let prompt = `System Instruction: ${systemInstruction}\n\nUser query: ${message}\n\n`;
     if (context) {
       prompt += `Context: ${JSON.stringify(context)}\n`;
     }
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        systemInstruction: systemInstruction,
-        temperature: 0.7,
-      }
-    });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const response = await model.generateContent(prompt);
     
-    res.json({ text: response.text });
+    res.json({ text: response.response.text() });
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate response' });
   }
@@ -75,7 +69,7 @@ app.post('/api/chat', async (req, res) => {
 // Serve static files in production
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
