@@ -187,7 +187,7 @@ describe('aiService', () => {
 
   it('returns API response when successful', async () => {
     shouldFail = false;
-    const res = await generateAIResponse('hello', { role: 'fan' as any, stadiumState: mockData });
+    const res = await generateAIResponse('successful api response for test', { role: 'fan' as import('../types').UserRole, stadiumState: mockData });
     expect(res).toBe('Successful API response for test');
     shouldFail = true;
   });
