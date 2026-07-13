@@ -64,3 +64,27 @@ export const validateAIResponse = (response: string): string => {
   // Sanitize any potential HTML injection from the AI
   return DOMPurify.sanitize(response);
 };
+
+export const generateTranslation = async (text: string, targetLang: string): Promise<string> => {
+  try {
+    const prompt = `Translate the following text to ${targetLang}. Return ONLY the translated text, nothing else. Text: "${text}"`;
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: prompt,
+        mode: 'translation',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Translation API Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return validateAIResponse(data.text || text);
+  } catch (error) {
+    // Offline / Fallback
+    return `[Offline] ${text}`;
+  }
+};
